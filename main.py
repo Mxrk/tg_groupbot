@@ -4,6 +4,7 @@ import logging
 import Config as cfg
 from database.database import Database
 from cmds.admingroup import Admin
+from filters.welcomeMessage import WelcomeMessage
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                      level=logging.INFO)
@@ -16,16 +17,10 @@ db = Database()
 print("Running")
 
 
-updater.dispatcher.add_handler(CommandHandler('init', Admin.init))
-updater.dispatcher.add_handler(CommandHandler('rules', Admin.rules))
-updater.dispatcher.add_handler(CallbackQueryHandler(Admin.button))
+dispatcher.add_handler(CommandHandler('init', Admin.init))
+dispatcher.add_handler(CommandHandler('rules', Admin.rules))
+dispatcher.add_handler(CallbackQueryHandler(Admin.button))
+dispatcher.add_handler(MessageHandler(Filters.status_update.new_chat_members, WelcomeMessage.greeting))
 
-def update(bot, update):
-    print("Hey")
-
-update_handler = MessageHandler(Filters.text, update)
-dispatcher.add_handler(update_handler)
-
-
-
+updater.start_polling()
 updater.idle()
