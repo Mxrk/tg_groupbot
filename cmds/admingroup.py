@@ -1,4 +1,4 @@
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton, ForceReply
 
 from utils.rules import Rules
 
@@ -29,7 +29,7 @@ class Admin:
         #rules = Rules.get()
 
         if query.data == "connect":
-
+            Admin.connect(bot,query)
 
         elif query.data == "rules":
             Admin.rules(bot, query)
@@ -41,14 +41,19 @@ class Admin:
             bot.edit_message_text(chat_id=query.message.chat_id,
                                   message_id=query.message.message_id, text='3')
             
-         elif query.data == "showRules":
+        elif query.data == "showRules":
             Admin.rules(bot, query)
 
-         elif query.data == "changeRules":
+        elif query.data == "changeRules":
             Admin.rules(bot, query)
 
-         elif query.data == "exit":
+        elif query.data == "exit":
             Admin.rules(bot, query)
 
+#todo
+    def connect(bot, update):
+        chat_id = update.message.chat_id
+        bot.send_message(chat_id, text="ID -> maingroup -> /id", reply_markup=ForceReply(force_reply=True))
+        print(update.message.text)
 
-    def connect(bot, udpate):
+
