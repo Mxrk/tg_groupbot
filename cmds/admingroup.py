@@ -5,25 +5,50 @@ from utils.rules import Rules
 
 class Admin:
     def init(bot, update):
-        print("Hey")
+        chat_id = update.message.chat_id
+        keyboard = [[InlineKeyboardButton("1️⃣", callback_data='connect'),
+        InlineKeyboardButton("2️⃣", callback_data='rules')],
+        [InlineKeyboardButton("3️⃣", callback_data='log'),
+        InlineKeyboardButton("4️⃣", callback_data='test')]]
+              
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        msg = "1️⃣: Connect\n2️⃣: Rules\n3️⃣: Log (activate/deactivate)\n4️⃣: test"
+        bot.send_message(chat_id, text=msg, reply_markup=reply_markup)
 
     def rules(bot, update):
-        keyboard = [[InlineKeyboardButton("Show rules", callback_data='1'),
-                     InlineKeyboardButton("Change rules", callback_data='2')],
-                    [InlineKeyboardButton("Exit", callback_data='3')]]
+        chat_id = update.message.chat_id
+        keyboard = [[InlineKeyboardButton("Show rules", callback_data='showRules'),
+                     InlineKeyboardButton("Change rules", callback_data='changeRules')],
+                    [InlineKeyboardButton("Exit", callback_data='exit')]]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        update.message.reply_text('What do you want to do?', reply_markup=reply_markup)
-
+        #update.message.reply_text('What do you want to do?', reply_markup=reply_markup)
+        bot.send_message(chat_id, text="test", reply_markup=reply_markup)
+        
     def button(bot, update):
         query = update.callback_query
-        rules = Rules.get()
+        #rules = Rules.get()
 
-        if query.data == '1':
-            bot.edit_message_text(chat_id=query.message.chat_id,
-                                  message_id=query.message.message_id, text=rules)
-        elif query.data == '2':
+        if query.data == "connect":
+
+
+        elif query.data == "rules":
+            Admin.rules(bot, query)
+
+        elif query.data == "log":
             bot.edit_message_text(chat_id=query.message.chat_id,
                                   message_id=query.message.message_id, text='2')
-        elif query.data == '3':
+        elif query.data == "test":
             bot.edit_message_text(chat_id=query.message.chat_id,
                                   message_id=query.message.message_id, text='3')
+            
+         elif query.data == "showRules":
+            Admin.rules(bot, query)
+
+         elif query.data == "changeRules":
+            Admin.rules(bot, query)
+
+         elif query.data == "exit":
+            Admin.rules(bot, query)
+
+
+    def connect(bot, udpate):
