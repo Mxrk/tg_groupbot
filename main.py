@@ -17,7 +17,7 @@ db = Database()
 
 print("Running")
 
-dispatcher.add_handler(CommandHandler('init', Admin.init))
+#dispatcher.add_handler(CommandHandler('init', Admin.init))
 dispatcher.add_handler(CommandHandler('rules', Admin.rules))
 dispatcher.add_handler(CommandHandler('id', Utils.id))
 dispatcher.add_handler(CallbackQueryHandler(Admin.button))

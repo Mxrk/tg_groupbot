@@ -59,7 +59,7 @@ class Admin:
        #return 1
     
     def cancel(bot, update):
-        print("Test")
+        print(update.message.text)
         return -1
 
 
