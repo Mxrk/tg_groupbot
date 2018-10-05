@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler, RegexHandler, ChosenInlineResultHandler
 import logging
 
 import Config as cfg
@@ -17,12 +17,16 @@ db = Database()
 
 print("Running")
 
-
 dispatcher.add_handler(CommandHandler('init', Admin.init))
 dispatcher.add_handler(CommandHandler('rules', Admin.rules))
 dispatcher.add_handler(CommandHandler('id', Utils.id))
 dispatcher.add_handler(CallbackQueryHandler(Admin.button))
 dispatcher.add_handler(MessageHandler(Filters.status_update.new_chat_members, WelcomeMessage.greeting))
+dispatcher.add_handler(ConversationHandler(
+    entry_points=[CommandHandler('init', Admin.init)],
+    states={1: [RegexHandler(r'-?\d+',Admin.cancel)]},
+    fallbacks=[]
+))
 
 updater.start_polling()
 updater.idle()

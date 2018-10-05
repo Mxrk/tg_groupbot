@@ -1,6 +1,5 @@
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, ForceReply
-
-from utils.rules import Rules
+from telegram.ext import ConversationHandler
 
 
 class Admin:
@@ -14,6 +13,8 @@ class Admin:
         reply_markup = InlineKeyboardMarkup(keyboard)
         msg = "1️⃣: Connect\n2️⃣: Rules\n3️⃣: Log (activate/deactivate)\n4️⃣: test"
         bot.send_message(chat_id, text=msg, reply_markup=reply_markup)
+        return 1
+       
 
     def rules(bot, update):
         chat_id = update.message.chat_id
@@ -30,7 +31,8 @@ class Admin:
 
         if query.data == "connect":
             Admin.connect(bot,query)
-
+            #return 1
+            #complete connect -> create collection with id
         elif query.data == "rules":
             Admin.rules(bot, query)
 
@@ -54,6 +56,11 @@ class Admin:
     def connect(bot, update):
         chat_id = update.message.chat_id
         bot.send_message(chat_id, text="ID -> maingroup -> /id", reply_markup=ForceReply(force_reply=True))
-        print(update.message.text)
+       #return 1
+    
+    def cancel(bot, update):
+        print("Test")
+        return -1
+
 
 
