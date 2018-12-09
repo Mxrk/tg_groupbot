@@ -19,16 +19,32 @@ class Database(object):
         self.collection = self.db[collectionname]
 
     def connectGroups(self, maingroup, admingroup):
+        admingroup = int(admingroup)
+        maingroup = int(maingroup)
+
         print("creating document")
         # TODO sanitize here
-        if self.collection.count_documents({"maingroup": maingroup, "admingroup": str(admingroup)}, limit=1):
+        if self.collection.count_documents({"maingroup": maingroup, "admingroup": admingroup}, limit=1):
             # TODO different checks -> if maingroup already linked with a group
             print("The document exists")
             return False
         else:
-            ins = {"admingroup": str(admingroup), "maingroup": maingroup}
+            ins = {"admingroup": admingroup, "maingroup": maingroup, "rules": ""}
             x = self.collection.insert_one(ins)
             return True
 
     def cancel(self, id):
         print("Test")
+
+    def showRulesAdmin(self, id):
+        id = int(id)
+        return self.collection.find_one({"admingroup": int(id)})["rules"]
+
+    def showRulesMain(self, id):
+        id = int(id)
+        return self.collection.find_one({"maingroup": id})["rules"]
+
+    def createRules(self, admingroup, rules):
+        print(admingroup)
+        print(rules)
+        self.collection.update_one({'admingroup': str(admingroup)}, {"$set":{"rules": rules}}, upsert=True)

@@ -16,7 +16,7 @@ class Admin(object):
         return 1
 
     @staticmethod
-    def rules(bot, update):
+    def aRules(bot, update):
         chat_id = update.message.chat_id
         keyboard = [[InlineKeyboardButton("Show rules", callback_data='showRules'),
                      InlineKeyboardButton("Change rules", callback_data='changeRules')],
@@ -36,7 +36,7 @@ class Admin(object):
             # return 1
             # complete connect -> create document with id
         elif query.data == "rules":
-            Admin.rules(bot, query)
+            Admin.aRules(bot, query)
 
         elif query.data == "log":
             bot.edit_message_text(chat_id=query.message.chat_id,
@@ -46,13 +46,19 @@ class Admin(object):
                                   message_id=query.message.message_id, text='3')
 
         elif query.data == "showRules":
-            Admin.rules(bot, query)
+            chat_id = query.message.chat_id
+            rules = Database().showRulesAdmin(str(chat_id))
+            if not rules:
+                bot.send_message(chat_id, text="No rules yet")
+            else:
+                bot.send_message(chat_id, text=rules)
 
         elif query.data == "changeRules":
-            Admin.rules(bot, query)
+            Admin.aRules(bot, query)
+            Database().createRules(query.message.chat_id, "hi")
 
         elif query.data == "exit":
-            Admin.rules(bot, query)
+            Admin.aRules(bot, query)
 
     # todo
     @staticmethod
