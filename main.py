@@ -1,4 +1,5 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler, RegexHandler, ChosenInlineResultHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler, \
+    RegexHandler, ChosenInlineResultHandler
 import logging
 
 import Config as cfg
@@ -8,16 +9,14 @@ from cmds.utils import Utils
 from filters.welcomeMessage import WelcomeMessage
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                     level=logging.INFO)
+                    level=logging.INFO)
 
 updater = Updater(token=cfg.token)
 dispatcher = updater.dispatcher
 
-db = Database()
-
 print("Running")
 
-#dispatcher.add_handler(CommandHandler('init', Admin.init))
+# dispatcher.add_handler(CommandHandler('init', Admin.init))
 dispatcher.add_handler(CommandHandler('rules', Admin.rules))
 dispatcher.add_handler(CommandHandler('id', Utils.id))
 dispatcher.add_handler(CallbackQueryHandler(Admin.button))

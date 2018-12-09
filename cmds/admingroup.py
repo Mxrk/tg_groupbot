@@ -31,9 +31,10 @@ class Admin(object):
         # rules = Rules.get()
 
         if query.data == "connect":
-            Admin.connect(bot,query)
-            #return 1
-            #complete connect -> create collection with id
+            Admin.connect(bot, query)
+
+            # return 1
+            # complete connect -> create document with id
         elif query.data == "rules":
             Admin.rules(bot, query)
 
