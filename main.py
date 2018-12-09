@@ -24,7 +24,7 @@ dispatcher.add_handler(CallbackQueryHandler(Admin.button))
 dispatcher.add_handler(MessageHandler(Filters.status_update.new_chat_members, WelcomeMessage.greeting))
 dispatcher.add_handler(ConversationHandler(
     entry_points=[CommandHandler('init', Admin.init)],
-    states={1: [RegexHandler(r'-?\d+',Admin.cancel)]},
+    states={1: [RegexHandler(r'-?\d+', Admin.link)]},
     fallbacks=[]
 ))
 
