@@ -8,7 +8,6 @@ class AdminAlert(BaseFilter):
     def filter(self, message):
         return "@admins" in message.text
 
-
     @staticmethod
     def admAlert(bot, update):
         chat_id = update.message.chat_id
@@ -17,4 +16,3 @@ class AdminAlert(BaseFilter):
 
 
 Admin_Alert = AdminAlert()
-

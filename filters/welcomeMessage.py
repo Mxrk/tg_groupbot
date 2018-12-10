@@ -1,4 +1,5 @@
 class WelcomeMessage:
+
     def greeting(bot, update):
         chat_id = update.message.chat_id
         user = update.message.from_user

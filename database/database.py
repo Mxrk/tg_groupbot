@@ -37,21 +37,19 @@ class Database(object):
     def cancel(self, id):
         print("Test")
 
-    def showRulesAdmin(self, id):
-        id = id
-        return self.collection.find_one({"admingroup": id})["rules"]
+    def showRulesAdmin(self, group):
+        return self.collection.find_one({"admingroup": group})["rules"]
 
-    def showRulesMain(self, id):
-       # id = int(id)
-        return self.collection.find_one({"maingroup": id})["rules"]
+    def showRulesMain(self, group):
+        return self.collection.find_one({"maingroup": group})["rules"]
 
     def createRules(self, admingroup, rules):
         print(admingroup)
         print(rules)
-        self.collection.update({'admingroup': admingroup}, {"$set":{"rules": rules}}, upsert=True)
+        self.collection.update({'admingroup': admingroup}, {"$set": {"rules": rules}}, upsert=True)
 
     def checkIfAdmin(self, group):
-        if self.collection.count_documents({"admingroup": group },limit=1):
+        if self.collection.count_documents({"admingroup": group}, limit=1):
             return True
         else:
             return False

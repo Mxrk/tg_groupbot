@@ -1,4 +1,6 @@
 from database.database import Database
+
+
 class Maingroup:
 
     @staticmethod
@@ -12,6 +14,3 @@ class Maingroup:
                 bot.send_message(update.message.chat_id, text=rules)
         else:
             bot.send_message(chat_id, text="Please use /arules instead")
-
-
-

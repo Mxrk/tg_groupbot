@@ -3,6 +3,8 @@ from database.database import Database
 
 
 class Admin(object):
+
+    @staticmethod
     def init(bot, update):
         chat_id = update.message.chat_id
         if Database().checkIfAdmin(chat_id):
@@ -19,8 +21,6 @@ class Admin(object):
         else:
             bot.send_message(chat_id, text="only in admingroup")
 
-
-
     @staticmethod
     def aRules(bot, update):
         chat_id = update.message.chat_id
@@ -35,13 +35,9 @@ class Admin(object):
         else:
             bot.send_message(chat_id, text="only in admingroup")
 
-
-
-
     @staticmethod
     def button(bot, update):
         query = update.callback_query
-        # rules = Rules.get()
 
         if query.data == "connect":
             Admin.connect(bot, query)

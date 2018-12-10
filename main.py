@@ -27,7 +27,6 @@ dispatcher.add_handler(ConversationHandler(
     fallbacks=[]
 ))
 
-
 dispatcher.add_handler(MessageHandler(Admin_Alert, AdminAlert.admAlert))
 dispatcher.add_handler(CommandHandler('rules', Maingroup.rules))
 
