@@ -1,9 +1,8 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler, ConversationHandler, \
-    RegexHandler, ChosenInlineResultHandler
+    RegexHandler
 import logging
 
 import Config as cfg
-from database.database import Database
 from cmds.admingroup import Admin
 from cmds.utils import Utils
 from filters.welcomeMessage import WelcomeMessage
@@ -17,7 +16,6 @@ dispatcher = updater.dispatcher
 
 print("Running")
 
-# dispatcher.add_handler(CommandHandler('init', Admin.init))
 dispatcher.add_handler(CommandHandler('arules', Admin.aRules))
 dispatcher.add_handler(CommandHandler('id', Utils.id))
 dispatcher.add_handler(CallbackQueryHandler(Admin.button))
