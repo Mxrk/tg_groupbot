@@ -1,7 +1,8 @@
-FROM python:3.7 as builder
+FROM python:3.7-alpine as builder
 
 WORKDIR /usr/src/bot
 COPY . /usr/src/bot
+RUN apk add -U --no-cache gcc build-base linux-headers python3-dev libffi-dev libressl-dev libxslt-dev
 RUN pip3 install --no-cache-dir -r requirements.txt 
 
 
