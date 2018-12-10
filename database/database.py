@@ -24,6 +24,7 @@ class Database(object):
 
         print("creating document")
         # TODO sanitize here
+        # admingroup as NumberLong
         if self.collection.count_documents({"maingroup": maingroup, "admingroup": admingroup}, limit=1):
             # TODO different checks -> if maingroup already linked with a group
             print("The document exists")
@@ -37,14 +38,27 @@ class Database(object):
         print("Test")
 
     def showRulesAdmin(self, id):
-        id = int(id)
-        return self.collection.find_one({"admingroup": int(id)})["rules"]
+        id = id
+        return self.collection.find_one({"admingroup": id})["rules"]
 
     def showRulesMain(self, id):
-        id = int(id)
+       # id = int(id)
         return self.collection.find_one({"maingroup": id})["rules"]
 
     def createRules(self, admingroup, rules):
         print(admingroup)
         print(rules)
-        self.collection.update_one({'admingroup': str(admingroup)}, {"$set":{"rules": rules}}, upsert=True)
+        self.collection.update({'admingroup': admingroup}, {"$set":{"rules": rules}}, upsert=True)
+
+    def checkIfAdmin(self, group):
+        if self.collection.count_documents({"admingroup": group },limit=1):
+            return True
+        else:
+            return False
+
+    def checkIfMain(self, group):
+        if self.collection.count_documents({"maingroup": group}, limit=1):
+            return True
+        else:
+            return False
+
