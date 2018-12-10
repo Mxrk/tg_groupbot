@@ -62,3 +62,5 @@ class Database(object):
         else:
             return False
 
+    def getAdminGroup(self, group):
+        return self.collection.find_one({"maingroup": group})["admingroup"]

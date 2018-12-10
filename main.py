@@ -7,6 +7,7 @@ from cmds.admingroup import Admin
 from cmds.utils import Utils
 from filters.welcomeMessage import WelcomeMessage
 from cmds.maingroup import Maingroup
+from filters.adminAlert import Admin_Alert, AdminAlert
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -26,6 +27,8 @@ dispatcher.add_handler(ConversationHandler(
     fallbacks=[]
 ))
 
+
+dispatcher.add_handler(MessageHandler(Admin_Alert, AdminAlert.admAlert))
 dispatcher.add_handler(CommandHandler('rules', Maingroup.rules))
 
 updater.start_polling()
