@@ -8,6 +8,7 @@ from cmds.utils import Utils
 from filters.newMember import NewMember
 from cmds.maingroup import Maingroup
 from filters.adminAlert import Admin_Alert, AdminAlert
+from filters.memberLeave import MemberLeave
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -27,6 +28,7 @@ dispatcher.add_handler(ConversationHandler(
 ))
 
 dispatcher.add_handler(MessageHandler(Filters.status_update.new_chat_members, NewMember.joinAlert))
+dispatcher.add_handler(MessageHandler(Filters.status_update.left_chat_member, MemberLeave.leaveAlert))
 dispatcher.add_handler(MessageHandler(Admin_Alert, AdminAlert.admAlert))
 dispatcher.add_handler(CommandHandler('rules', Maingroup.rules))
 

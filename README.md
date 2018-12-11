@@ -7,14 +7,21 @@
 * Rules
   * show rules
   * create rules
-* notifications 
+* notifications
+   * member join
+   * member leave
+   * '@admins'
+   
+
 
 
 # functions group
 * Welcome message
 * Rules
   * show rules
-* @admins to notify admins
+* '@admins' to notify admins
+
+
  
  
  

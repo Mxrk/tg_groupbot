@@ -5,8 +5,6 @@ class NewMember:
 
     @staticmethod
     def joinAlert(bot, update):
-        print("Join alert")
-        # if new member log activated
         for members in update.message.new_chat_members:
             chat_id = Database().getAdminGroup(update.message.chat_id)
             s = "A new member joined your group:\nID: {id}\nUsername: @{username}"
