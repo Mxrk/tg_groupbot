@@ -6,7 +6,10 @@ from database.database import Database
 class AdminAlert(BaseFilter):
 
     def filter(self, message):
-        return "@admins" in message.text
+        if message.text == "@admins":
+            return True
+        else:
+            return False
 
     @staticmethod
     def admAlert(bot, update):
