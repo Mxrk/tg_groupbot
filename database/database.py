@@ -52,13 +52,19 @@ class Database(object):
         if self.collection.count_documents({"admingroup": group}, limit=1):
             return True
         else:
-            return False
+            if self.collection.count_documents({"maingroup": group}, limit=1):
+                return False
+            else:
+                return True
 
     def checkIfMain(self, group):
         if self.collection.count_documents({"maingroup": group}, limit=1):
             return True
         else:
-            return False
+            if self.collection.count_documents({"admingroup": group}, limit=1):
+                return False
+            else:
+                return True
 
     def getAdminGroup(self, group):
         return self.collection.find_one({"maingroup": group})["admingroup"]
